@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
+  <title>Kitch chat merger</title>
+  <style>
+    /* GitHub (Primer) color scheme, light + dark. */
+    :root {
+      --bg: #ffffff;
+      --bg-subtle: #f6f8fa;
+      --fg: #1f2328;
+      --fg-muted: #59636e;
+      --border: #d1d9e0;
+      --accent: #0969da;
+      --btn-bg: #f6f8fa;
+      --btn-bg-hover: #eff2f5;
+      --btn-primary-bg: #1f883d;
+      --btn-primary-bg-hover: #1c8139;
+      --btn-primary-fg: #ffffff;
+      --danger: #d1242f;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --bg-subtle: #151b23;
+        --fg: #f0f6fc;
+        --fg-muted: #9198a1;
+        --border: #3d444d;
+        --accent: #4493f8;
+        --btn-bg: #212830;
+        --btn-bg-hover: #262c36;
+        --btn-primary-bg: #238636;
+        --btn-primary-bg-hover: #29903b;
+        --btn-primary-fg: #ffffff;
+        --danger: #f85149;
+      }
+    }
+
+    body {
+      min-width: 380px;
+      margin: 0;
+      padding: 12px;
+      background: var(--bg);
+      color: var(--fg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    }
+    h3 { margin: 0 0 8px; }
+    th { text-align: left; color: var(--fg-muted); font-weight: 600; }
+    input[type="text"], select {
+      background: var(--bg);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+    input[type="text"] { width: 130px; }
+    input[type="text"]:focus, select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: -1px;
+      border-color: var(--accent);
+    }
+    input[type="checkbox"] { accent-color: var(--accent); }
+    button {
+      background: var(--btn-bg);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button:hover { background: var(--btn-bg-hover); }
+    button.primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
+      border-color: transparent;
+    }
+    button.primary:hover { background: var(--btn-primary-bg-hover); }
+    button.danger { color: var(--danger); }
+    #status { color: var(--fg-muted); }
+    .credit { margin: 12px 0 0; font-size: 11px; color: var(--fg-muted); }
+    .credit a { color: var(--accent); text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h3>Kitch chat merger</h3>
+
+  <p>
+    <label><input type="checkbox" id="enabled"> Enabled</label>
+  </p>
+
+  <p>
+    <label><input type="checkbox" id="autoPair"> Auto-add verified streamers with the same name on both platforms</label>
+  </p>
+
+  <p>
+    <label>Display mode:
+      <select id="displayMode">
+        <option value="auto">Auto (inline, panel as fallback)</option>
+        <option value="inline">Inline in native chat</option>
+        <option value="panel">Separate panel</option>
+      </select>
+    </label>
+  </p>
+
+  <p><button type="button" id="add" class="primary">Add pair</button></p>
+
+  <table>
+    <thead>
+      <tr><th>Twitch nick</th><th>Kick nick</th><th></th></tr>
+    </thead>
+    <tbody id="pairs"></tbody>
+  </table>
+
+  <p id="status"></p>
+
+  <p class="credit"><a href="https://www.twitch.tv/polawdomu" target="_blank" rel="noopener noreferrer">credit - polawdomu</a></p>
+
+  <script src="../src/shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

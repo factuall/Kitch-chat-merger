@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "Kitch chat merger",
+  "version": "0.1.0",
+  "description": "See Twitch and Kick chat together when a streamer multistreams. Messages from the other platform appear right in the chat.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "https://kick.com/*",
+    "https://web.kick.com/*",
+    "*://*.kick.com/*",
+    "wss://*.kick.com/*",
+    "https://www.twitch.tv/*",
+    "https://twitch.tv/*",
+    "https://gql.twitch.tv/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Kitch chat merger",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.twitch.tv/*",
+        "https://twitch.tv/*",
+        "https://kick.com/*",
+        "https://www.kick.com/*"
+      ],
+      "js": [
+        "src/shared.js",
+        "src/twitch-chat.js",
+        "src/kick-chat.js",
+        "src/kick-native.js",
+        "src/display.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/content.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://kick.com/*",
+        "https://www.kick.com/*"
+      ],
+      "js": [
+        "src/kick-page-hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
